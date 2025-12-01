@@ -38,7 +38,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* subtle sparkles */
     body::before{
       content:"";
       position:fixed; inset:-40px;
@@ -119,7 +118,7 @@
     }
 
     .pad{ padding:16px; }
-    h1,h2,p{ margin:0 }
+    h1,p{ margin:0 }
     h1{ font-size:20px; line-height:1.25 }
     p{ color:var(--muted); line-height:1.55; margin-top:8px; }
 
@@ -134,10 +133,10 @@
       font-weight:900;
       letter-spacing:-.2px;
     }
-    .hero .sub{
+    .hint{
+      font-size:12px;
+      color: rgba(234,242,255,.55);
       margin-top:10px;
-      font-size:14px;
-      color:rgba(234,242,255,.78);
     }
 
     .media{
@@ -148,6 +147,7 @@
       display:block;
       object-fit:cover;
     }
+    .media.square{ aspect-ratio: 4 / 3; }
 
     .btnRow{
       display:flex; gap:10px; flex-wrap:wrap;
@@ -157,35 +157,26 @@
     }
     a.btn{
       text-decoration:none;
-      color:#061018;
-      background: linear-gradient(135deg, rgba(255,112,166,.95), rgba(125,211,252,.85));
       border-radius: 14px;
       padding:12px 14px;
       font-weight:900;
       display:inline-flex;
       align-items:center;
       gap:8px;
-    }
-    a.btn.ghost{
+      border:1px solid var(--line);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      border:1px solid var(--line);
-      font-weight:800;
+    }
+    a.btn.primary{
+      border:0;
+      color:#061018;
+      background: linear-gradient(135deg, rgba(255,112,166,.95), rgba(125,211,252,.85));
     }
 
     /* pages */
-    .page{
-      display:none;
-      transform: translateY(8px);
-      opacity:0;
-    }
-    .page.active{
-      display:block;
-      animation: pop .26s ease forwards;
-    }
-    @keyframes pop{
-      to{ transform: translateY(0); opacity:1; }
-    }
+    .page{ display:none; transform: translateY(8px); opacity:0; }
+    .page.active{ display:block; animation: pop .26s ease forwards; }
+    @keyframes pop{ to{ transform: translateY(0); opacity:1; } }
 
     /* bottom nav (hearts only) */
     .tabbar{
@@ -208,7 +199,6 @@
       scrollbar-width:none;
     }
     .tabs::-webkit-scrollbar{display:none;}
-
     .tab{
       flex: 0 0 auto;
       width:46px; height:46px;
@@ -217,7 +207,7 @@
       background: rgba(255,255,255,.05);
       display:grid;
       place-items:center;
-      font-size:20px; /* emoji size */
+      font-size:20px;
       cursor:pointer;
       user-select:none;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
@@ -227,12 +217,6 @@
       background: rgba(255,112,166,.16);
       border-color: rgba(255,112,166,.30);
       box-shadow: 0 10px 26px rgba(255,112,166,.12);
-    }
-
-    .hint{
-      font-size:12px;
-      color: rgba(234,242,255,.55);
-      margin-top:10px;
     }
 
     .toast{
@@ -261,11 +245,11 @@
       <div class="header">
         <div class="pill">
           <div class="logo"><span class="dot"></span><span>오늘도, 화이팅~!</span></div>
-          <button class="cta" id="shareBtn" type="button" aria-label="share">링크공유</button>
+          <button class="cta" id="shareBtn" type="button">링크공유</button>
         </div>
       </div>
 
-      <!-- PAGE 1: 인사 -->
+      <!-- PAGE 1 -->
       <section class="card page active" id="p1">
         <div class="hero">
           <div class="big">안녕하세요 김우열님<br/>행복을 나눠드립니다.</div>
@@ -273,93 +257,82 @@
         </div>
       </section>
 
-      <!-- PAGE 2: 리트리버 영상 -->
+      <!-- PAGE 2: 리트리버 (유튜브 임베드) -->
       <section class="card page" id="p2">
         <div class="pad">
           <h1>나만 보는 리트리버</h1>
         </div>
-        <!-- ✅ 여기에 mp4 링크 넣기: src="https://.../retriever.mp4" -->
-        <!-- <video class="media" controls playsinline preload="metadata"
-               src="YOUR_RETRIEVER_VIDEO_URL.mp4"></video> -->
-        <div class="btnRow">
-          <!-- ✅ 유튜브 링크로 보여주고 싶으면 아래 href만 바꾸면 됨 -->
-          <a class="btn ghost" href="https://youtube.com/shorts/iy62MjjXjWI?si=NcCsPwFxZKyOukqm" target="_blank" rel="noreferrer">영상 링크 열기</a>
-        </div>
+        <!-- ✅ 여기 data-youtube만 바꾸면 됨 (shorts/youtu.be/일반 링크 아무거나 OK) -->
+        <iframe class="media yt" data-youtube="https://youtube.com/shorts/iy62MjjXjWI?si=NcCsPwFxZKyOukqm"
+          title="retriever" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </section>
 
-      <!-- PAGE 3: 푸로산게 사진 -->
+      <!-- PAGE 3: 푸로산게 (유튜브 임베드로 쓰는 중) -->
       <section class="card page" id="p3">
         <div class="pad">
           <h1>푸로산게 너무 예쁘다</h1>
         </div>
-        <!-- ✅ 여기에 이미지 링크 넣기: src="https://.../photo.jpg" -->
-        <iframe class="media"
-                src="https://youtube.com/shorts/f7-uayDFh7Y?si=1fS_eLsk3jYTijjz"
-                title="purosange"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
+        <iframe class="media yt" data-youtube="https://youtube.com/shorts/f7-uayDFh7Y?si=1fS_eLsk3jYTijjz"
+          title="purosange" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </section>
 
-      <!-- PAGE 4: 과학 다큐 유튜브 임베드 -->
+      <!-- PAGE 4: 과학 다큐 (유튜브 임베드) -->
       <section class="card page" id="p4">
         <div class="pad">
           <h1>과학 다큐 안졸린가...</h1>
           <p>ps..내 최애는 "요리인류"</p>
         </div>
-        <!-- ✅ VIDEO_ID 바꾸기: https://www.youtube.com/watch?v=VIDEO_ID -->
-        <iframe class="media"
-                src="https://youtu.be/UdKqwnqnJXo?si=GrISntNG5f_06Gfc"
-                title="Science Documentary"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
+        <!-- ✅ youtu.be 링크 그대로 넣어도 변환됨 -->
+        <iframe class="media yt" data-youtube="https://youtu.be/UdKqwnqnJXo?si=GrISntNG5f_06Gfc"
+          title="Science Documentary" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </section>
 
-      <!-- PAGE 5: 일본 애니 링크 -->
+      <!-- PAGE 5: 애니 (넷플릭스는 임베드 불가 → 버튼으로 열기만) -->
       <section class="card page" id="p5">
         <div class="pad">
           <h1>애니보고 후쿠오카 리벤지전 한번 더?</h1>
+          <p>넷플릭스는 보안 때문에 페이지 안에 “삽입(iframe)”이 막혀서, 버튼으로 여는 방식이 제일 안정적이야.</p>
         </div>
         <div class="btnRow">
-          <!-- ✅ 여기 href만 바꾸기 -->
-          <a class="btn" href="YOUR_ANIME_LINK" target="_blank" rel="noreferrer">애니 보러가기</a>
-          <a class="btn ghost" href="https://www.netflix.com/kr/title/70299043?s=i&trkid=254567369&vlang=ko&trg=cp" target="_blank" rel="noreferrer">작품 정보</a>
+          <!-- ✅ 여기에 넷플릭스 “짧은” 링크로 넣기 추천 -->
+          <a class="btn primary" href="https://www.netflix.com/title/70299043" target="_blank" rel="noreferrer">넷플에서 열기</a>
         </div>
       </section>
 
-      <!-- PAGE 6: 비 오는 영상 + 문구 -->
+      <!-- PAGE 6: 비 영상 (유튜브 임베드) -->
       <section class="card page" id="p6">
         <div class="pad">
           <h1>비 오는 날</h1>
           <p>빗소리를 들으며 비에 젖은 흙냄새를 상상해보세요</p>
         </div>
-        <!-- ✅ mp4 링크로 넣거나(추천), 아래 버튼 링크만 써도 됨 -->
-        <!-- <video class="media" controls playsinline preload="metadata"
-               src="YOUR_RAIN_VIDEO_URL.mp4"></video> -->
-        <div class="btnRow">
-          <a class="btn ghost" href="https://youtu.be/Rs8IThfLYgw?si=MzrCcuYfO774o8Bx" target="_blank" rel="noreferrer">비 영상 링크 열기</a>
-        </div>
+        <iframe class="media yt" data-youtube="https://youtu.be/Rs8IThfLYgw?si=MzrCcuYfO774o8Bx"
+          title="rain" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </section>
 
-      <!-- PAGE 7: 등산 영상 링크 -->
+      <!-- PAGE 7: 등산 (링크만) -->
       <section class="card page" id="p7">
         <div class="pad">
           <h1>등산</h1>
         </div>
         <div class="btnRow">
-          <!-- ✅ 여기 href만 바꾸기 -->
-          <a class="btn" href="YOUR_HIKING_VIDEO_LINK" target="_blank" rel="noreferrer">등산 영상 보기</a>
-          <a class="btn ghost" href="https://www.youtube.com/watch?v=4Z5cAa7nA2w" target="_blank" rel="noreferrer">플레이리스트</a>
+          <!-- ✅ 직접 링크 넣기 -->
+          <a class="btn primary" href="https://www.youtube.com/watch?v=4Z5cAa7nA2w" target="_blank" rel="noreferrer">등산 영상 보기</a>
         </div>
       </section>
 
     </div>
   </div>
 
-  <!-- bottom hearts -->
   <nav class="tabbar" aria-label="bottom tabs">
-    <div class="tabs" id="tabs">
+    <div class="tabs">
       <button class="tab active" data-target="p1" aria-label="page 1">💗</button>
       <button class="tab" data-target="p2" aria-label="page 2">💖</button>
       <button class="tab" data-target="p3" aria-label="page 3">💘</button>
@@ -380,19 +353,17 @@
     function showToast(msg){
       toast.textContent = msg;
       toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 1300);
+      setTimeout(() => toast.classList.remove("show"), 1200);
     }
 
     function go(id){
       pages.forEach(p => p.classList.toggle("active", p.id === id));
       tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
-      // 햅틱 느낌(지원되는 폰)
       if (navigator.vibrate) navigator.vibrate(8);
     }
-
     tabs.forEach(t => t.addEventListener("click", () => go(t.dataset.target)));
 
-    // 공유 버튼: 가능한 기기면 공유 UI, 아니면 링크 복사
+    // 공유 버튼
     document.getElementById("shareBtn").addEventListener("click", async () => {
       const url = location.href;
       try{
@@ -405,6 +376,37 @@
       } catch {
         showToast("공유 취소");
       }
+    });
+
+    // ✅ 유튜브 링크(쇼츠/youtu.be/일반) → embed로 자동 변환
+    function youtubeToEmbed(url){
+      try{
+        const u = new URL(url);
+        // youtu.be/VIDEO_ID
+        if (u.hostname.includes("youtu.be")){
+          const id = u.pathname.replace("/", "");
+          return `https://www.youtube.com/embed/${id}`;
+        }
+        // youtube.com/shorts/VIDEO_ID
+        if (u.pathname.startsWith("/shorts/")){
+          const id = u.pathname.split("/shorts/")[1].split("/")[0];
+          return `https://www.youtube.com/embed/${id}`;
+        }
+        // youtube.com/watch?v=VIDEO_ID
+        const v = u.searchParams.get("v");
+        if (v) return `https://www.youtube.com/embed/${v}`;
+        // already embed
+        if (u.pathname.startsWith("/embed/")) return url;
+      } catch(e){}
+      return url; // 실패하면 원본 그대로
+    }
+
+    document.querySelectorAll("iframe.yt").forEach(iframe => {
+      const raw = iframe.getAttribute("data-youtube");
+      if (!raw) return;
+      const embed = youtubeToEmbed(raw);
+      // 쇼츠는 세로라서 보기 좋게 옵션 살짝
+      iframe.src = embed;
     });
   </script>
 </body>
