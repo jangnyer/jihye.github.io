@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f14" />
+  <title>💗</title>
+
+  <!-- iOS 홈화면 "앱처럼" -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="💗" />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:rgba(18,26,36,.72);
+      --line:rgba(255,255,255,.08);
+      --text:#eaf2ff;
+      --muted:rgba(234,242,255,.74);
+      --accent:#ff70a6;
+      --accent2:#7dd3fc;
+      --r:18px;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(255,112,166,.26), transparent 55%),
+                  radial-gradient(900px 800px at 110% 10%, rgba(125,211,252,.20), transparent 55%),
+                  radial-gradient(900px 700px at 50% 110%, rgba(167,243,208,.14), transparent 55%),
+                  var(--bg);
+      overflow-x:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* subtle sparkles */
+    body::before{
+      content:"";
+      position:fixed; inset:-40px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.14) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.10) 0 1px, transparent 2px),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,.12) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 70%, rgba(255,255,255,.08) 0 1px, transparent 2px);
+      background-size: 240px 240px;
+      filter: blur(.2px);
+      opacity:.6;
+      pointer-events:none;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    @keyframes drift{ from{transform:translateY(0)} to{transform:translateY(-12px)} }
+
+    .app{
+      min-height:100dvh;
+      display:flex;
+      justify-content:center;
+      padding: env(safe-area-inset-top) 12px calc(88px + env(safe-area-inset-bottom)) 12px;
+    }
+
+    .frame{
+      width: min(560px, 100%);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .header{
+      position:sticky; top:0;
+      z-index:10;
+      padding:10px 6px;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,20,.72), rgba(11,15,20,.15));
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid var(--line);
+      background: rgba(18,26,36,.55);
+      border-radius:999px;
+      padding:10px 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .pill .logo{
+      display:flex; align-items:center; gap:8px;
+      font-weight:800;
+      letter-spacing:.2px;
+      opacity:.95;
+    }
+    .pill .logo .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+      box-shadow:0 0 16px rgba(255,112,166,.55);
+    }
+
+    .pill .cta{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:700;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .pad{ padding:16px; }
+    h1,h2,p{ margin:0 }
+    h1{ font-size:20px; line-height:1.25 }
+    p{ color:var(--muted); line-height:1.55; margin-top:8px; }
+
+    .hero{
+      padding:22px 18px;
+      background:
+        radial-gradient(900px 260px at 30% 0%, rgba(255,112,166,.20), transparent 60%),
+        radial-gradient(900px 260px at 90% 40%, rgba(125,211,252,.16), transparent 60%);
+    }
+    .hero .big{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+    .hero .sub{
+      margin-top:10px;
+      font-size:14px;
+      color:rgba(234,242,255,.78);
+    }
+
+    .media{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      background: rgba(0,0,0,.25);
+      border-top:1px solid var(--line);
+      display:block;
+      object-fit:cover;
+    }
+
+    .btnRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:14px;
+      border-top:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    a.btn{
+      text-decoration:none;
+      color:#061018;
+      background: linear-gradient(135deg, rgba(255,112,166,.95), rgba(125,211,252,.85));
+      border-radius: 14px;
+      padding:12px 14px;
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    a.btn.ghost{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid var(--line);
+      font-weight:800;
+    }
+
+    /* pages */
+    .page{
+      display:none;
+      transform: translateY(8px);
+      opacity:0;
+    }
+    .page.active{
+      display:block;
+      animation: pop .26s ease forwards;
+    }
+    @keyframes pop{
+      to{ transform: translateY(0); opacity:1; }
+    }
+
+    /* bottom nav (hearts only) */
+    .tabbar{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      background: rgba(11,15,20,.92);
+      border-top:1px solid var(--line);
+      backdrop-filter: blur(10px);
+      display:flex;
+      justify-content:center;
+      z-index:20;
+    }
+    .tabs{
+      width:min(560px,100%);
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width:none;
+    }
+    .tabs::-webkit-scrollbar{display:none;}
+
+    .tab{
+      flex: 0 0 auto;
+      width:46px; height:46px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      display:grid;
+      place-items:center;
+      font-size:20px; /* emoji size */
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .tab:active{ transform: scale(.97); }
+    .tab.active{
+      background: rgba(255,112,166,.16);
+      border-color: rgba(255,112,166,.30);
+      box-shadow: 0 10px 26px rgba(255,112,166,.12);
+    }
+
+    .hint{
+      font-size:12px;
+      color: rgba(234,242,255,.55);
+      margin-top:10px;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:92px;
+      background: rgba(18,26,36,.92);
+      border:1px solid var(--line);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      z-index:30;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="frame">
+
+      <div class="header">
+        <div class="pill">
+          <div class="logo"><span class="dot"></span><span>오늘도, 조용히 마음을 전해요</span></div>
+          <button class="cta" id="shareBtn" type="button" aria-label="share">링크공유</button>
+        </div>
+      </div>
+
+      <!-- PAGE 1: 인사 -->
+      <section class="card page active" id="p1">
+        <div class="hero">
+          <div class="big">안녕하세요 김우열님<br/>행복을 나눠드립니다.</div>
+          <div class="sub">부담 없이, 그냥 마음 한 조각만 두고 가요 💗</div>
+          <div class="hint">※ 아래 하트 탭을 눌러서 페이지를 넘겨보세요.</div>
+        </div>
+      </section>
+
+      <!-- PAGE 2: 리트리버 영상 -->
+      <section class="card page" id="p2">
+        <div class="pad">
+          <h1>리트리버 영상</h1>
+          <p>여기에는 네가 직접 영상 링크를 넣으면 돼.</p>
+        </div>
+        <!-- ✅ 여기에 mp4 링크 넣기: src="https://.../retriever.mp4" -->
+        <video class="media" controls playsinline preload="metadata"
+               src="YOUR_RETRIEVER_VIDEO_URL.mp4"></video>
+        <div class="btnRow">
+          <!-- ✅ 유튜브 링크로 보여주고 싶으면 아래 href만 바꾸면 됨 -->
+          <a class="btn ghost" href="YOUR_RETRIEVER_VIDEO_LINK" target="_blank" rel="noreferrer">영상 링크 열기</a>
+        </div>
+      </section>
+
+      <!-- PAGE 3: 푸로산게 사진 -->
+      <section class="card page" id="p3">
+        <div class="pad">
+          <h1>푸로산게 사진</h1>
+          <p>이미지 URL만 바꾸면 바로 바뀜.</p>
+        </div>
+        <!-- ✅ 여기에 이미지 링크 넣기: src="https://.../photo.jpg" -->
+        <img class="media" style="aspect-ratio: 4 / 3;" src="YOUR_IMAGE_URL.jpg" alt="푸로산게 사진" />
+      </section>
+
+      <!-- PAGE 4: 과학 다큐 유튜브 임베드 -->
+      <section class="card page" id="p4">
+        <div class="pad">
+          <h1>과학 다큐</h1>
+          <p>YouTube는 embed 링크(영상ID)로 넣으면 폰에서 깔끔해.</p>
+        </div>
+        <!-- ✅ VIDEO_ID 바꾸기: https://www.youtube.com/watch?v=VIDEO_ID -->
+        <iframe class="media"
+                src="https://www.youtube.com/embed/VIDEO_ID"
+                title="Science Documentary"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </section>
+
+      <!-- PAGE 5: 일본 애니 링크 -->
+      <section class="card page" id="p5">
+        <div class="pad">
+          <h1>일본 애니</h1>
+          <p>좋아하는 작품 링크를 걸어두면, 눌렀을 때 바로 열림.</p>
+        </div>
+        <div class="btnRow">
+          <!-- ✅ 여기 href만 바꾸기 -->
+          <a class="btn" href="YOUR_ANIME_LINK" target="_blank" rel="noreferrer">애니 보러가기</a>
+          <a class="btn ghost" href="YOUR_ANIME_INFO_LINK" target="_blank" rel="noreferrer">작품 정보</a>
+        </div>
+      </section>
+
+      <!-- PAGE 6: 비 오는 영상 + 문구 -->
+      <section class="card page" id="p6">
+        <div class="pad">
+          <h1>비 오는 날</h1>
+          <p>빗소리를 들으며 비에 젖은 흙냄새를 상상해보세요</p>
+        </div>
+        <!-- ✅ mp4 링크로 넣거나(추천), 아래 버튼 링크만 써도 됨 -->
+        <video class="media" controls playsinline preload="metadata"
+               src="YOUR_RAIN_VIDEO_URL.mp4"></video>
+        <div class="btnRow">
+          <a class="btn ghost" href="YOUR_RAIN_VIDEO_LINK" target="_blank" rel="noreferrer">비 영상 링크 열기</a>
+        </div>
+      </section>
+
+      <!-- PAGE 7: 등산 영상 링크 -->
+      <section class="card page" id="p7">
+        <div class="pad">
+          <h1>등산하는 영상</h1>
+          <p>가벼운 산책처럼, 천천히 올라가는 느낌이 좋아.</p>
+        </div>
+        <div class="btnRow">
+          <!-- ✅ 여기 href만 바꾸기 -->
+          <a class="btn" href="YOUR_HIKING_VIDEO_LINK" target="_blank" rel="noreferrer">등산 영상 보기</a>
+          <a class="btn ghost" href="YOUR_HIKING_PLAYLIST_LINK" target="_blank" rel="noreferrer">플레이리스트</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- bottom hearts -->
+  <nav class="tabbar" aria-label="bottom tabs">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-target="p1" aria-label="page 1">💗</button>
+      <button class="tab" data-target="p2" aria-label="page 2">💖</button>
+      <button class="tab" data-target="p3" aria-label="page 3">💘</button>
+      <button class="tab" data-target="p4" aria-label="page 4">💓</button>
+      <button class="tab" data-target="p5" aria-label="page 5">💞</button>
+      <button class="tab" data-target="p6" aria-label="page 6">💝</button>
+      <button class="tab" data-target="p7" aria-label="page 7">💟</button>
+    </div>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const pages = [...document.querySelectorAll(".page")];
+    const tabs = [...document.querySelectorAll(".tab")];
+    const toast = document.getElementById("toast");
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    function go(id){
+      pages.forEach(p => p.classList.toggle("active", p.id === id));
+      tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
+      // 햅틱 느낌(지원되는 폰)
+      if (navigator.vibrate) navigator.vibrate(8);
+    }
+
+    tabs.forEach(t => t.addEventListener("click", () => go(t.dataset.target)));
+
+    // 공유 버튼: 가능한 기기면 공유 UI, 아니면 링크 복사
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      const url = location.href;
+      try{
+        if (navigator.share){
+          await navigator.share({ title:"💗", url });
+        } else {
+          await navigator.clipboard.writeText(url);
+          showToast("링크 복사 완료!");
+        }
+      } catch {
+        showToast("공유 취소");
+      }
+    });
+  </script>
+</body>
+</html>
